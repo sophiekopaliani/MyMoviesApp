@@ -9,6 +9,7 @@ import UIKit
 
 class CollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var movieNameLabel: UILabel!
+    @IBOutlet weak var movieImageView: UIImageView!
     
     func configure(with movieName: String) {
         movieNameLabel.text = movieName

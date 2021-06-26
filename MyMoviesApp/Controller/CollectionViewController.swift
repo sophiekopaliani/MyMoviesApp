@@ -19,7 +19,6 @@ class CollectionViewController: UICollectionViewController, MovieManagerDelegate
     }
 
     func didUpdateMovies(movies: MoviesData) {
-        print(movies.results[0].id)
         dataSource = movies.results
         DispatchQueue.main.async {
             self.collectionView.reloadData()
@@ -56,12 +55,19 @@ class CollectionViewController: UICollectionViewController, MovieManagerDelegate
 
     // MARK: UICollectionViewDelegate
     
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return true
+
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "goToMovieDetails", sender: self)
     }
-    */
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destinationVC = segue.destination as! MovieDetailsViewController
+        let indexPath = collectionView.indexPathsForSelectedItems?.first
+        print(indexPath?.row)
+        destinationVC.selectedMovie = dataSource[indexPath?.row ?? 0]
+    }
+    
 
     
 }

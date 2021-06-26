@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		E4010ED526874AC1001E5E31 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4010ED426874AC1001E5E31 /* CollectionViewController.swift */; };
 		E4010EDB26875AC1001E5E31 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4010EDA26875AC1001E5E31 /* CollectionViewCell.swift */; };
+		E4010EE326877F15001E5E31 /* MovieDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4010EE226877F15001E5E31 /* MovieDetailsViewController.swift */; };
 		E4486E4E2686F4C6006AD89A /* MoviesData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4486E4D2686F4C6006AD89A /* MoviesData.swift */; };
 		E4B51FD2268645E70030AABE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B51FD1268645E70030AABE /* AppDelegate.swift */; };
 		E4B51FD4268645E70030AABE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B51FD3268645E70030AABE /* SceneDelegate.swift */; };
@@ -23,6 +24,7 @@
 /* Begin PBXFileReference section */
 		E4010ED426874AC1001E5E31 /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		E4010EDA26875AC1001E5E31 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
+		E4010EE226877F15001E5E31 /* MovieDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsViewController.swift; sourceTree = "<group>"; };
 		E4486E4D2686F4C6006AD89A /* MoviesData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesData.swift; sourceTree = "<group>"; };
 		E4B51FCE268645E70030AABE /* MyMoviesApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyMoviesApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4B51FD1268645E70030AABE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 			isa = PBXGroup;
 			children = (
 				E4010ED426874AC1001E5E31 /* CollectionViewController.swift */,
+				E4010EE226877F15001E5E31 /* MovieDetailsViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -177,6 +180,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4010EE326877F15001E5E31 /* MovieDetailsViewController.swift in Sources */,
 				E4010ED526874AC1001E5E31 /* CollectionViewController.swift in Sources */,
 				E4B51FD2268645E70030AABE /* AppDelegate.swift in Sources */,
 				E4010EDB26875AC1001E5E31 /* CollectionViewCell.swift in Sources */,
