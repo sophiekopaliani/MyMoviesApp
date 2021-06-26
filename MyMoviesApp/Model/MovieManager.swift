@@ -49,9 +49,6 @@ struct MovieManager: MovieDataSource {
                     return
                 }
                 if let safeData = data {
-                   // let dataString = String(data: safeData, encoding: .utf8)
-                  //  print(dataString!)
-                    
                     parseJSON(movieData: safeData)
                 }
             }
