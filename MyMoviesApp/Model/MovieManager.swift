@@ -49,13 +49,28 @@ struct MovieManager: MovieDataSource {
                     return
                 }
                 if let safeData = data {
-                    let dataString = String(data: safeData, encoding: .utf8)
-                    print(dataString!)
+                   // let dataString = String(data: safeData, encoding: .utf8)
+                  //  print(dataString!)
+                    
+                    parseJSON(movieData: safeData)
                 }
             }
             task.resume()
         }
     }
     
-    
+    func parseJSON(movieData: Data) {
+        let decoder = JSONDecoder()
+        
+        do {
+            let decodedData = try decoder.decode(MoviesData.self, from: movieData)
+            print(decodedData.results[0].id)
+        } catch  {
+            //TODO: Error
+            print(error)
+        }
+        
+        
+    }
+        
 }
