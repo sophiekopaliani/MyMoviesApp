@@ -7,10 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E4010ED526874AC1001E5E31 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4010ED426874AC1001E5E31 /* CollectionViewController.swift */; };
+		E4010EDB26875AC1001E5E31 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4010EDA26875AC1001E5E31 /* CollectionViewCell.swift */; };
 		E4486E4E2686F4C6006AD89A /* MoviesData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4486E4D2686F4C6006AD89A /* MoviesData.swift */; };
 		E4B51FD2268645E70030AABE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B51FD1268645E70030AABE /* AppDelegate.swift */; };
 		E4B51FD4268645E70030AABE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B51FD3268645E70030AABE /* SceneDelegate.swift */; };
-		E4B51FD6268645E70030AABE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B51FD5268645E70030AABE /* ViewController.swift */; };
 		E4B51FD9268645E70030AABE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4B51FD7268645E70030AABE /* Main.storyboard */; };
 		E4B51FDC268645E70030AABE /* MyMoviesApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E4B51FDA268645E70030AABE /* MyMoviesApp.xcdatamodeld */; };
 		E4B51FDE268645E90030AABE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E4B51FDD268645E90030AABE /* Assets.xcassets */; };
@@ -20,11 +21,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E4010ED426874AC1001E5E31 /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
+		E4010EDA26875AC1001E5E31 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		E4486E4D2686F4C6006AD89A /* MoviesData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesData.swift; sourceTree = "<group>"; };
 		E4B51FCE268645E70030AABE /* MyMoviesApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyMoviesApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4B51FD1268645E70030AABE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E4B51FD3268645E70030AABE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		E4B51FD5268645E70030AABE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		E4B51FD8268645E70030AABE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E4B51FDB268645E70030AABE /* MyMoviesApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MyMoviesApp.xcdatamodel; sourceTree = "<group>"; };
 		E4B51FDD268645E90030AABE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -74,6 +76,7 @@
 				E4B51FE2268645E90030AABE /* Info.plist */,
 				E4B51FF026866D370030AABE /* Keys.plist */,
 				E4B51FDA268645E70030AABE /* MyMoviesApp.xcdatamodeld */,
+				E4010EDA26875AC1001E5E31 /* CollectionViewCell.swift */,
 			);
 			path = MyMoviesApp;
 			sourceTree = "<group>";
@@ -98,7 +101,7 @@
 		E4B51FEB268660660030AABE /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				E4B51FD5268645E70030AABE /* ViewController.swift */,
+				E4010ED426874AC1001E5E31 /* CollectionViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -174,8 +177,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E4B51FD6268645E70030AABE /* ViewController.swift in Sources */,
+				E4010ED526874AC1001E5E31 /* CollectionViewController.swift in Sources */,
 				E4B51FD2268645E70030AABE /* AppDelegate.swift in Sources */,
+				E4010EDB26875AC1001E5E31 /* CollectionViewCell.swift in Sources */,
 				E4B51FED268661140030AABE /* MovieManager.swift in Sources */,
 				E4B51FDC268645E70030AABE /* MyMoviesApp.xcdatamodeld in Sources */,
 				E4486E4E2686F4C6006AD89A /* MoviesData.swift in Sources */,

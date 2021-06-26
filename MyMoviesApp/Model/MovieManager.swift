@@ -7,11 +7,17 @@
 
 import Foundation
 
+protocol MovieManagerDelegate {
+    func didUpdateMovies(movies: MoviesData)
+}
 protocol MovieDataSource {
     func getMovies()
 }
 
+
 struct MovieManager: MovieDataSource {
+    
+    var delegate: MovieManagerDelegate?
     
     let baseURL = "https://api.themoviedb.org/3/discover/movie?language=en-US&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate&sort_by=popularity.desc"
 
@@ -49,25 +55,24 @@ struct MovieManager: MovieDataSource {
                     return
                 }
                 if let safeData = data {
-                    parseJSON(movieData: safeData)
+                    if let movies = parseJSON(movieData: safeData) {
+                        delegate?.didUpdateMovies(movies: movies)
+                    }
                 }
             }
             task.resume()
         }
     }
     
-    func parseJSON(movieData: Data) {
+    func parseJSON(movieData: Data) -> MoviesData? {
         let decoder = JSONDecoder()
-        
         do {
-            let decodedData = try decoder.decode(MoviesData.self, from: movieData)
-            print(decodedData.results[0].id)
+            return try decoder.decode(MoviesData.self, from: movieData)
         } catch  {
             //TODO: Error
             print(error)
         }
-        
-        
+        return nil
     }
         
 }
