@@ -12,6 +12,7 @@ protocol MovieManagerDelegate {
 }
 protocol MovieDataSource {
     func getMovies(filteredBy type: filterType)
+    func getFavourites()
 }
 
 
@@ -79,6 +80,11 @@ struct MovieManager: MovieDataSource {
             print(error)
         }
         return nil
+    }
+    
+    func getFavourites() {
+        let favMovies = MoviesData(page: 0, results: FavouritesManager.loadFavouriteMovies())
+        delegate?.didUpdateMovies(movies: favMovies)
     }
         
 }

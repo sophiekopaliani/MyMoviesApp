@@ -21,15 +21,18 @@ class CollectionViewController: UICollectionViewController, MovieManagerDelegate
     @IBAction func segmentDidChange(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0 {
             movieManager.getMovies(filteredBy: .popularity)
-        } else {
+        } else if sender.selectedSegmentIndex == 1 {
             movieManager.getMovies(filteredBy: .topRated)
+        } else {
+            movieManager.getFavourites()
         }
-        
-        collectionView.reloadData()
+ 
+        //collectionView.reloadData()
     }
     
     func didUpdateMovies(movies: MoviesData) {
         dataSource = movies.results
+        print(dataSource.count)
         DispatchQueue.main.async {
             self.collectionView.reloadData()
         }

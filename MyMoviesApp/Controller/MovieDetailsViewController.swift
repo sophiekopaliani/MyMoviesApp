@@ -6,8 +6,11 @@
 //
 
 import UIKit
+import CoreData
 
 class MovieDetailsViewController: UIViewController {
+    
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     @IBOutlet weak var posterImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -31,4 +34,12 @@ class MovieDetailsViewController: UIViewController {
         posterImageView.loadImage(with: selectedMovie?.poster_path)
         
     }
+    @IBAction func faivouritesButtonPressed(_ sender: UIButton) {
+        print("add movie to favourites")
+        
+        if let movie = selectedMovie {
+            FavouritesManager.saveMovieToFavourites(movie)
+        }
+    }
+    
 }
