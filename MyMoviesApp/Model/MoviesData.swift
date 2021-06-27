@@ -15,7 +15,7 @@ struct MoviesData: Codable {
 struct Movie: Codable {
     let id: Int
     let title: String
-    let poster_path: String
+    let poster_path: String?
     let overview: String
     let original_title: String
     let popularity: Double

@@ -28,5 +28,7 @@ class MovieDetailsViewController: UIViewController {
         ratingLabel.text = ratingString
         dateLabel.text = selectedMovie?.release_date
         
+        posterImageView.loadImage(with: selectedMovie?.poster_path)
+        
     }
 }

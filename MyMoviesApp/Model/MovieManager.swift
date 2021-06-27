@@ -11,7 +11,7 @@ protocol MovieManagerDelegate {
     func didUpdateMovies(movies: MoviesData)
 }
 protocol MovieDataSource {
-    func getMovies()
+    func getMovies(filteredBy type: filterType)
 }
 
 
@@ -19,7 +19,7 @@ struct MovieManager: MovieDataSource {
     
     var delegate: MovieManagerDelegate?
     
-    let baseURL = "https://api.themoviedb.org/3/discover/movie?language=en-US&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate&sort_by=popularity.desc"
+    let baseURL = "https://api.themoviedb.org/3/discover/movie?language=en-US&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate"
 
 //    let sortingType = "popularity.desc"
     
@@ -36,13 +36,19 @@ struct MovieManager: MovieDataSource {
         return nil
     }
     
-    func getMovies() {
+//    func getMovies() {
+//
+//        //TODO: change explisit Key!
+//        let movieURL = "\(baseURL)&api_key=\(key!)"
+//        fetchData(urlString: movieURL)
+//    }
+//
+    func getMovies(filteredBy type: filterType = .popularity) {
         
         //TODO: change explisit Key!
-        let movieURL = "\(baseURL)&api_key=\(key!)"
+        let movieURL = "\(baseURL)&api_key=\(key!)\(getFilterString(type: type))"
         fetchData(urlString: movieURL)
     }
-    
     
     func fetchData(urlString: String) {
        
@@ -76,3 +82,18 @@ struct MovieManager: MovieDataSource {
     }
         
 }
+
+enum filterType {
+    case popularity
+    case topRated
+}
+
+func getFilterString(type: filterType) -> String {
+    switch type {
+    case .popularity:
+        return "&sort_by=popularity.desc"
+    case .topRated:
+        return "&sort_by=vote_average.desc"
+    }
+}
+

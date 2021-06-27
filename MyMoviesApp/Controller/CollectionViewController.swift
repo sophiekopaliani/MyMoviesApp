@@ -18,6 +18,16 @@ class CollectionViewController: UICollectionViewController, MovieManagerDelegate
         movieManager.getMovies()
     }
 
+    @IBAction func segmentDidChange(_ sender: UISegmentedControl) {
+        if sender.selectedSegmentIndex == 0 {
+            movieManager.getMovies(filteredBy: .popularity)
+        } else {
+            movieManager.getMovies(filteredBy: .topRated)
+        }
+        
+        collectionView.reloadData()
+    }
+    
     func didUpdateMovies(movies: MoviesData) {
         dataSource = movies.results
         DispatchQueue.main.async {
@@ -25,15 +35,6 @@ class CollectionViewController: UICollectionViewController, MovieManagerDelegate
         }
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
 
     // MARK: UICollectionViewDataSource
 
@@ -46,7 +47,8 @@ class CollectionViewController: UICollectionViewController, MovieManagerDelegate
         var cell = UICollectionViewCell()
         if let movieCell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as? CollectionViewCell {
             
-            movieCell.configure(with: dataSource[indexPath.row].title)
+          //  movieCell.configure(with: dataSource[indexPath.row].title)
+            movieCell.configure(with: dataSource[indexPath.row].title, imageUrl: dataSource[indexPath.row].poster_path)
             cell = movieCell
         }
     
@@ -64,7 +66,6 @@ class CollectionViewController: UICollectionViewController, MovieManagerDelegate
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destinationVC = segue.destination as! MovieDetailsViewController
         let indexPath = collectionView.indexPathsForSelectedItems?.first
-        print(indexPath?.row)
         destinationVC.selectedMovie = dataSource[indexPath?.row ?? 0]
     }
     
