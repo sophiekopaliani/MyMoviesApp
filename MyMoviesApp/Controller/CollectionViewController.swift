@@ -8,38 +8,50 @@
 import UIKit
 
 class CollectionViewController: UICollectionViewController, MovieManagerDelegate {
+
     @IBOutlet weak var sortSegment: UISegmentedControl!
     
     var movieManager: MovieDataSource = MovieManager()
     var dataSource: [Movie] = []
+    var sortType: SortType = .popularity
+    var paging: Int = 1
         
     override func viewDidLoad() {
         super.viewDidLoad()
         movieManager.delegateMM = self
-        movieManager.getMovies(filteredBy: .popularity)
+        movieManager.getMovies(filteredBy: sortType)
     }
 
     override func viewDidAppear(_ animated: Bool) {
         if sortSegment.selectedSegmentIndex == 2 {
+            dataSource = []
             movieManager.getFavourites()
         }
         
     }
     
     @IBAction func segmentDidChange(_ sender: UISegmentedControl) {
+        dataSource = []
+        
         if sender.selectedSegmentIndex == 0 {
-            movieManager.getMovies(filteredBy: .popularity)
+            sortType = .popularity
+            movieManager.getMovies(filteredBy: sortType)
         } else if sender.selectedSegmentIndex == 1 {
-            movieManager.getMovies(filteredBy: .topRated)
+            sortType = .topRated
+            movieManager.getMovies(filteredBy: sortType)
         } else {
             movieManager.getFavourites()
         }
+        paging = 1
+        self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
     }
     
     func getMoviesSucceeded(movies: MoviesData) {
-        dataSource = movies.results
+        dataSource.append(contentsOf: movies.results)
+        paging += 1
         DispatchQueue.main.async {
             self.collectionView.reloadData()
+            
         }
     }
     
@@ -59,13 +71,20 @@ class CollectionViewController: UICollectionViewController, MovieManagerDelegate
         var cell = UICollectionViewCell()
         
         if let movieCell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.collectionCellIdentifier, for: indexPath) as? CollectionViewCell {
-            
             movieCell.configure(with: dataSource[indexPath.row].title, imageUrl: dataSource[indexPath.row].poster_path)
             cell = movieCell
         }
     
         return cell
     }
+    
+    override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+
+        if indexPath.row == self.dataSource.count - 3 && sortSegment.selectedSegmentIndex != 2 {
+            movieManager.addMovies(filteredBy: sortType, page: paging)
+        }
+    }
+    
 
     // MARK: UICollectionViewDelegate
     
@@ -79,7 +98,10 @@ class CollectionViewController: UICollectionViewController, MovieManagerDelegate
         let destinationVC = segue.destination as! MovieDetailsViewController
         let indexPath = collectionView.indexPathsForSelectedItems?.first
         destinationVC.movieId = dataSource[indexPath?.row ?? 0].id
-    }    
+    }
+    
+    
+    
 }
 
 

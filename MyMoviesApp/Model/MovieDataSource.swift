@@ -13,4 +13,5 @@ protocol MovieDataSource {
     func getMovies(filteredBy type: SortType)
     func getFavourites()
     func getMovieDetails(id: Int)
+    func addMovies(filteredBy type: SortType, page: Int)
 }

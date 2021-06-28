@@ -9,7 +9,8 @@ import Foundation
 
 struct Constants {
      struct Connection {
-        static let baseURL = "https://api.themoviedb.org/3/discover/movie?language=en-US&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate"
+        static let baseURL = "https://api.themoviedb.org/3/discover/movie?language=en-US&include_adult=false&include_video=false&with_watch_monetization_types=flatrate"
+        static let pagingStringStart = "&page="
         static let keyResourseName = "Keys"
         static let keyStorageType = "plist"
         static let keyName = "TMDBKey"

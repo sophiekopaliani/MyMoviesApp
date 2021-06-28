@@ -14,7 +14,7 @@ struct MovieManager: MovieDataSource {
     let favouriteManager = FavouritesManager()
     var delegateMM: MovieManagerDelegate?
     var delegateMD: MovieDetailsDelegate?
-    
+
     let baseURL = Constants.Connection.baseURL
     
     var key: String {
@@ -28,6 +28,12 @@ struct MovieManager: MovieDataSource {
 
     func getMovies(filteredBy type: SortType = .popularity) {
         let movieURL = baseURL+key+getFilterString(type: type)
+        connection.fetchData(urlString: movieURL, successCallback: delegateMM?.getMoviesSucceeded, errorCallback: delegateMM?.getMoviesFailed)
+    }
+    
+    func addMovies(filteredBy type: SortType = .popularity, page: Int) {
+        let movieURL = baseURL+key+getFilterString(type: type)+Constants.Connection.pagingStringStart+String(page)
+        
         connection.fetchData(urlString: movieURL, successCallback: delegateMM?.getMoviesSucceeded, errorCallback: delegateMM?.getMoviesFailed)
     }
     
