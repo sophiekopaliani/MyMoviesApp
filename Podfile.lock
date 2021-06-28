@@ -1,0 +1,16 @@
+PODS:
+  - MapleBacon (6.1.0)
+
+DEPENDENCIES:
+  - MapleBacon
+
+SPEC REPOS:
+  trunk:
+    - MapleBacon
+
+SPEC CHECKSUMS:
+  MapleBacon: 695c9c2fd4df2147841e963570b9fb6941d03a36
+
+PODFILE CHECKSUM: 6410ba781cd86ce38ebcd74319c09d37d575c51d
+
+COCOAPODS: 1.10.1

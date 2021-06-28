@@ -10,13 +10,13 @@ import UIKit
 class CollectionViewController: UICollectionViewController, MovieManagerDelegate {
     @IBOutlet weak var sortSegment: UISegmentedControl!
     
-    var movieManager = MovieManager()
+    var movieManager: MovieDataSource = MovieManager()
     var dataSource: [Movie] = []
         
     override func viewDidLoad() {
         super.viewDidLoad()
         movieManager.delegateMM = self
-        movieManager.getMovies()
+        movieManager.getMovies(filteredBy: .popularity)
     }
 
     override func viewDidAppear(_ animated: Bool) {

@@ -10,7 +10,6 @@ import Foundation
 
 struct MovieManager: MovieDataSource {
 
-    
     let connection = ConnectoinManager()
     let favouriteManager = FavouritesManager()
     var delegateMM: MovieManagerDelegate?

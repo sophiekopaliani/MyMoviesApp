@@ -68,7 +68,8 @@ class MovieDetailsViewController: UIViewController, MovieDetailsDelegate {
             self.describtionLabel.text = self.movie?.overview
             self.ratingLabel.text = "\(self.movie?.popularity ?? 0)"
             self.dateLabel.text = self.movie?.release_date
-            self.posterImageView.loadImage(with: self.movie?.poster_path)
+            let url = URL(string: "\(Constants.Connection.imageBaseString)\(self.movie?.poster_path ?? "")")
+            self.posterImageView.setImage(with: url,placeholder: UIImage(named: "placeholder"))
         }
     }
     

@@ -8,6 +8,8 @@
 import Foundation
 
 protocol MovieDataSource {
+    
+    var delegateMM: MovieManagerDelegate? { get set }
     func getMovies(filteredBy type: SortType)
     func getFavourites()
     func getMovieDetails(id: Int)

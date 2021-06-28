@@ -43,7 +43,7 @@
                                     </constraints>
                                 </collectionViewCellContentView>
                                 <connections>
-                                    <outlet property="movieImageView" destination="jUI-EL-E28" id="KQa-WT-PWa"/>
+                                    <outlet property="posterImageView" destination="jUI-EL-E28" id="JLt-dE-bnG"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
