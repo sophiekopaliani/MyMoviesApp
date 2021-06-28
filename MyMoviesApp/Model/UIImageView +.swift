@@ -8,9 +8,9 @@
 import UIKit
 
 extension UIImageView {
+   
     func loadImage(with url: String?) {
-        let baseString = "https://image.tmdb.org/t/p/w500"
-        
+        let baseString = Constants.Connection.imageBaseString
         if let url = URL(string: "\(baseString)\(url ?? "")") {
             let session = URLSession(configuration: .default)
             

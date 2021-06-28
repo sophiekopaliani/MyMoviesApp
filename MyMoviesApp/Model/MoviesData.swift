@@ -19,7 +19,6 @@ struct Movie: Codable {
     let overview: String
     let original_title: String
     let popularity: Double
-  //  let vote_average: Double
     let release_date: String?
     
 }

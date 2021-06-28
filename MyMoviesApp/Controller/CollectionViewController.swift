@@ -8,16 +8,24 @@
 import UIKit
 
 class CollectionViewController: UICollectionViewController, MovieManagerDelegate {
+    @IBOutlet weak var sortSegment: UISegmentedControl!
     
     var movieManager = MovieManager()
     var dataSource: [Movie] = []
         
     override func viewDidLoad() {
         super.viewDidLoad()
-        movieManager.delegate = self
+        movieManager.delegateMM = self
         movieManager.getMovies()
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        if sortSegment.selectedSegmentIndex == 2 {
+            movieManager.getFavourites()
+        }
+        
+    }
+    
     @IBAction func segmentDidChange(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0 {
             movieManager.getMovies(filteredBy: .popularity)
@@ -26,16 +34,17 @@ class CollectionViewController: UICollectionViewController, MovieManagerDelegate
         } else {
             movieManager.getFavourites()
         }
- 
-        //collectionView.reloadData()
     }
     
-    func didUpdateMovies(movies: MoviesData) {
+    func getMoviesSucceeded(movies: MoviesData) {
         dataSource = movies.results
-        print(dataSource.count)
         DispatchQueue.main.async {
             self.collectionView.reloadData()
         }
+    }
+    
+    func getMoviesFailed(error: Error) {
+        error.presentErr(vc: self)
     }
     
 
@@ -48,9 +57,9 @@ class CollectionViewController: UICollectionViewController, MovieManagerDelegate
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
         var cell = UICollectionViewCell()
-        if let movieCell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as? CollectionViewCell {
+        
+        if let movieCell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.collectionCellIdentifier, for: indexPath) as? CollectionViewCell {
             
-          //  movieCell.configure(with: dataSource[indexPath.row].title)
             movieCell.configure(with: dataSource[indexPath.row].title, imageUrl: dataSource[indexPath.row].poster_path)
             cell = movieCell
         }
@@ -63,15 +72,14 @@ class CollectionViewController: UICollectionViewController, MovieManagerDelegate
 
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "goToMovieDetails", sender: self)
+        performSegue(withIdentifier: Constants.movieDetailsSegue, sender: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destinationVC = segue.destination as! MovieDetailsViewController
         let indexPath = collectionView.indexPathsForSelectedItems?.first
-        destinationVC.selectedMovie = dataSource[indexPath?.row ?? 0]
-    }
-    
-
-    
+        destinationVC.movieId = dataSource[indexPath?.row ?? 0].id
+    }    
 }
+
+

@@ -18,42 +18,32 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.090196087960000004" green="0.2588235438" blue="0.36470589040000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" sectionInsetReference="safeArea" id="EQG-Xa-IOU">
-                            <size key="itemSize" width="128" height="128"/>
+                            <size key="itemSize" width="100" height="150"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="CN9-dJ-1tl" customClass="CollectionViewCell" customModule="MyMoviesApp" customModuleProvider="target">
-                                <rect key="frame" x="10" y="0.0" width="128" height="128"/>
+                                <rect key="frame" x="10" y="0.0" width="100" height="150"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="oqs-GN-fMt">
-                                    <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="100" height="150"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jUI-EL-E28">
-                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="100" height="150"/>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Movie Name" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E2T-bh-mVr">
-                                            <rect key="frame" x="0.0" y="107.5" width="128" height="20.5"/>
-                                            <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
-                                            <color key="textColor" systemColor="systemGroupedBackgroundColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="trailing" secondItem="E2T-bh-mVr" secondAttribute="trailing" id="6zO-t4-xVu"/>
                                         <constraint firstAttribute="bottom" secondItem="jUI-EL-E28" secondAttribute="bottom" id="M87-Lk-Kz7"/>
                                         <constraint firstAttribute="trailing" secondItem="jUI-EL-E28" secondAttribute="trailing" id="N92-lP-r4a"/>
-                                        <constraint firstAttribute="bottom" secondItem="E2T-bh-mVr" secondAttribute="bottom" id="VuR-oX-WvU"/>
                                         <constraint firstItem="jUI-EL-E28" firstAttribute="top" secondItem="oqs-GN-fMt" secondAttribute="top" id="je2-Y3-C43"/>
                                         <constraint firstItem="jUI-EL-E28" firstAttribute="leading" secondItem="oqs-GN-fMt" secondAttribute="leading" id="m0P-xL-Wa7"/>
-                                        <constraint firstItem="E2T-bh-mVr" firstAttribute="leading" secondItem="oqs-GN-fMt" secondAttribute="leading" id="yAq-9P-Wkc"/>
                                     </constraints>
                                 </collectionViewCellContentView>
                                 <connections>
                                     <outlet property="movieImageView" destination="jUI-EL-E28" id="KQa-WT-PWa"/>
-                                    <outlet property="movieNameLabel" destination="E2T-bh-mVr" id="r6a-GA-fkv"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -65,7 +55,7 @@
                     <navigationItem key="navigationItem" id="tpo-if-dxw">
                         <barButtonItem key="rightBarButtonItem" style="plain" id="pTs-wd-upS">
                             <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="Ybs-8S-SDc">
-                                <rect key="frame" x="231" y="5.5" width="163" height="33"/>
+                                <rect key="frame" x="143" y="5.5" width="251" height="33"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
                                 <segments>
@@ -82,6 +72,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="sortSegment" destination="Ybs-8S-SDc" id="MKZ-Jp-dDO"/>
                         <segue destination="4sW-aw-SOG" kind="show" identifier="goToMovieDetails" id="mHp-Qg-dz5"/>
                     </connections>
                 </collectionViewController>
@@ -97,7 +88,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="a6f-0g-tR1">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="a6f-0g-tR1">
                                 <rect key="frame" x="10" y="98" width="394" height="300"/>
                                 <constraints>
                                     <constraint firstAttribute="width" priority="500" constant="300" id="OM3-SV-d29"/>
@@ -122,6 +113,7 @@
                                         </constraints>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" image="heart" catalog="system"/>
+                                        <state key="selected" image="heart.fill" catalog="system"/>
                                         <connections>
                                             <action selector="faivouritesButtonPressed:" destination="4sW-aw-SOG" eventType="touchUpInside" id="0gO-em-I7P"/>
                                         </connections>
@@ -193,6 +185,7 @@
                     <connections>
                         <outlet property="dateLabel" destination="BGD-e4-Ilp" id="wA5-FC-48o"/>
                         <outlet property="describtionLabel" destination="Wz4-gi-NMq" id="AmY-52-z53"/>
+                        <outlet property="favouriteButton" destination="i5z-XH-IxF" id="SgA-FY-eKY"/>
                         <outlet property="posterImageView" destination="a6f-0g-tR1" id="Sva-zy-c1S"/>
                         <outlet property="ratingLabel" destination="Nom-iq-eV2" id="kio-ge-tZW"/>
                         <outlet property="titleLabel" destination="orC-RM-wqN" id="KWD-ht-Jwg"/>
@@ -228,15 +221,12 @@
     </scenes>
     <color key="tintColor" red="0.56490108939999994" green="0.8089540891" blue="0.63065032489999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
     <resources>
-        <image name="background.jpg" width="612" height="408"/>
         <image name="heart" catalog="system" width="128" height="109"/>
+        <image name="heart.fill" catalog="system" width="128" height="109"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray6Color">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemGroupedBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="tertiarySystemGroupedBackgroundColor">

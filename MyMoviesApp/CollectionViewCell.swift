@@ -8,11 +8,11 @@
 import UIKit
 
 class CollectionViewCell: UICollectionViewCell {
-    @IBOutlet weak var movieNameLabel: UILabel!
+  
     @IBOutlet weak var movieImageView: UIImageView!
     
     func configure(with movieName: String, imageUrl: String?) {
-        movieNameLabel.text = movieName
+     
         movieImageView.loadImage(with: imageUrl)
     }
     

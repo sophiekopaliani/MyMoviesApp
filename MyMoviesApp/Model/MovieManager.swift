@@ -7,99 +7,51 @@
 
 import Foundation
 
-protocol MovieManagerDelegate {
-    func didUpdateMovies(movies: MoviesData)
-}
-protocol MovieDataSource {
-    func getMovies(filteredBy type: filterType)
-    func getFavourites()
-}
-
 
 struct MovieManager: MovieDataSource {
-    
-    var delegate: MovieManagerDelegate?
-    
-    let baseURL = "https://api.themoviedb.org/3/discover/movie?language=en-US&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate"
 
-//    let sortingType = "popularity.desc"
     
-    var key: String? {
-        var keys: NSDictionary?
-
-        if let path = Bundle.main.path(forResource: "Keys", ofType: "plist") {
-            keys = NSDictionary(contentsOfFile: path)
-        }
-        if let dict = keys {
-            let key = dict["TMDBKey"] as? String
-            return key
-        }
-        return nil
-    }
+    let connection = ConnectoinManager()
+    let favouriteManager = FavouritesManager()
+    var delegateMM: MovieManagerDelegate?
+    var delegateMD: MovieDetailsDelegate?
     
-//    func getMovies() {
-//
-//        //TODO: change explisit Key!
-//        let movieURL = "\(baseURL)&api_key=\(key!)"
-//        fetchData(urlString: movieURL)
-//    }
-//
-    func getMovies(filteredBy type: filterType = .popularity) {
+    let baseURL = Constants.Connection.baseURL
+    
+    var key: String {
+        let path = Bundle.main.path(forResource: Constants.Connection.keyResourseName, ofType: Constants.Connection.keyStorageType )!
+        let keys = NSDictionary(contentsOfFile: path)!
+        let keyString = keys[Constants.Connection.keyName] as! String
+        let finalString = Constants.Connection.keyStringStart + keyString
         
-        //TODO: change explisit Key!
-        let movieURL = "\(baseURL)&api_key=\(key!)\(getFilterString(type: type))"
-        fetchData(urlString: movieURL)
+        return finalString
     }
-    
-    func fetchData(urlString: String) {
-       
-        if let url = URL(string: urlString) {
-            let session = URLSession(configuration: .default)
-            let task = session.dataTask(with: url) { (data, response, error) in
-                if error != nil {
-                    //TODO: handle error not print
-                    print(error!)
-                    return
-                }
-                if let safeData = data {
-                    if let movies = parseJSON(movieData: safeData) {
-                        delegate?.didUpdateMovies(movies: movies)
-                    }
-                }
-            }
-            task.resume()
-        }
-    }
-    
-    func parseJSON(movieData: Data) -> MoviesData? {
-        let decoder = JSONDecoder()
-        do {
-            return try decoder.decode(MoviesData.self, from: movieData)
-        } catch  {
-            //TODO: Error
-            print(error)
-        }
-        return nil
+
+    func getMovies(filteredBy type: SortType = .popularity) {
+        let movieURL = baseURL+key+getFilterString(type: type)
+        connection.fetchData(urlString: movieURL, successCallback: delegateMM?.getMoviesSucceeded, errorCallback: delegateMM?.getMoviesFailed)
     }
     
     func getFavourites() {
-        let favMovies = MoviesData(page: 0, results: FavouritesManager.loadFavouriteMovies())
-        delegate?.didUpdateMovies(movies: favMovies)
+        do {
+            let favMovies = try  MoviesData(page: 0, results: favouriteManager.loadFavouriteMovies())
+            delegateMM?.getMoviesSucceeded(movies: favMovies)
+        } catch {
+            delegateMM?.getMoviesFailed(error: error)
+        }
+    }
+    
+    func getMovieDetails(id: Int) {
+        let movieDetailsUrl = Constants.Connection.movieDetailsBaseString+String(id)+"?"+key
+        connection.fetchData(urlString: movieDetailsUrl, successCallback: delegateMD?.getMovieDetailsSucceeded, errorCallback: delegateMD?.getMovieDetailsFailed)
     }
         
-}
-
-enum filterType {
-    case popularity
-    case topRated
-}
-
-func getFilterString(type: filterType) -> String {
-    switch type {
-    case .popularity:
-        return "&sort_by=popularity.desc"
-    case .topRated:
-        return "&sort_by=vote_average.desc"
+    func getFilterString(type: SortType) -> String {
+        switch type {
+        case .popularity:
+            return Constants.Connection.sortByPopularityString
+        case .topRated:
+            return Constants.Connection.sortByTrandingString
+        }
     }
 }
-

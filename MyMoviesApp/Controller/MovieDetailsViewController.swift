@@ -8,37 +8,67 @@
 import UIKit
 import CoreData
 
-class MovieDetailsViewController: UIViewController {
-    
+class MovieDetailsViewController: UIViewController, MovieDetailsDelegate {
+
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    let favouriteManager = FavouritesManager()
+    var movieManager = MovieManager()
     
     @IBOutlet weak var posterImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var describtionLabel: UILabel!
     @IBOutlet weak var ratingLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var favouriteButton: UIButton!
     
-    var selectedMovie: Movie?
+    var movie: Movie?
+    var movieId: Int?
+    var movieIsFavourite = false
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
-        titleLabel.text = selectedMovie?.original_title
-        describtionLabel.text = selectedMovie?.overview
-        var ratingString = ""
-        if let rating = selectedMovie?.popularity {
-            ratingString = "\(rating)"
+        movieManager.delegateMD = self
+        
+        if let id = movieId {
+            movieManager.getMovieDetails(id: id)
+            movieIsFavourite = favouriteManager.movieIsFavourite(with: id)
         }
-        ratingLabel.text = ratingString
-        dateLabel.text = selectedMovie?.release_date
-        
-        posterImageView.loadImage(with: selectedMovie?.poster_path)
-        
+        favouriteButton.isSelected = movieIsFavourite
     }
     @IBAction func faivouritesButtonPressed(_ sender: UIButton) {
-        print("add movie to favourites")
         
-        if let movie = selectedMovie {
-            FavouritesManager.saveMovieToFavourites(movie)
+        if let movie = movie {
+            do {
+                if favouriteButton.isSelected {
+                    try favouriteManager.removeMovieFromFavourites(movie.id)
+                    
+                } else {
+                    try favouriteManager.saveMovieToFavourites(movie)
+                }
+            } catch {
+                error.presentErr(vc: self)
+            }
+            favouriteButton.isSelected = !favouriteButton.isSelected
+        }
+    }
+    
+    func getMovieDetailsSucceeded(movie: Movie) {
+        self.movie = movie
+        displayMovieInfo()
+    }
+    
+    func getMovieDetailsFailed(error: Error) {
+        error.presentErr(vc: self)
+    }
+    
+    func displayMovieInfo() {
+        DispatchQueue.main.async {
+            self.titleLabel.text = self.movie?.original_title
+            self.describtionLabel.text = self.movie?.overview
+            self.ratingLabel.text = "\(self.movie?.popularity ?? 0)"
+            self.dateLabel.text = self.movie?.release_date
+            self.posterImageView.loadImage(with: self.movie?.poster_path)
         }
     }
     
