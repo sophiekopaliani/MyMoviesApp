@@ -11,23 +11,36 @@ class CollectionViewController: UICollectionViewController, MovieManagerDelegate
 
     @IBOutlet weak var sortSegment: UISegmentedControl!
     
-    var movieManager: MovieDataSource = MovieManager()
+    var refresher: UIRefreshControl!
+    var movieManager: MovieDataSource!
     var dataSource: [Movie] = []
     var sortType: SortType = .POPULAR
     var paging: Int = 1
         
     override func viewDidLoad() {
         super.viewDidLoad()
+        refresher = UIRefreshControl()
+        movieManager = MovieManager()
+        refresher.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        collectionView!.refreshControl = refresher
         movieManager.delegateMM = self
         getMovies()
+    }
+    @objc func refresh() {
+        //collectionView!.refreshControl!.beginRefreshing()
+        paging = 1
+        if sortSegment.selectedSegmentIndex != 2 {
+            getMovies()
+        } else {
+            reloadFavourites()
+        }
+        collectionView!.refreshControl!.endRefreshing()
     }
 
     override func viewDidAppear(_ animated: Bool) {
         if sortSegment.selectedSegmentIndex == 2 {
-            dataSource = []
-            movieManager.getFavourites()
+            reloadFavourites()
         }
-        
     }
     
     @IBAction func segmentDidChange(_ sender: UISegmentedControl) {
@@ -64,6 +77,11 @@ class CollectionViewController: UICollectionViewController, MovieManagerDelegate
     }
     func getMovies() {
         movieManager.getMovies(filteredBy: sortType, page: paging)
+    }
+    
+    func reloadFavourites() {
+        dataSource = []
+        movieManager.getFavourites()
     }
     
 
