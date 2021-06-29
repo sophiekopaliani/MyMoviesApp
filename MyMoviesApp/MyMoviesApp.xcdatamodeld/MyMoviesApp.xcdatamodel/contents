@@ -8,8 +8,9 @@
         <attribute name="poster_Path" optional="YES" attributeType="String"/>
         <attribute name="release_date" optional="YES" attributeType="String"/>
         <attribute name="title" attributeType="String"/>
+        <attribute name="vote_average" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
     </entity>
     <elements>
-        <element name="FavouriteMovies" positionX="-63" positionY="-18" width="128" height="134"/>
+        <element name="FavouriteMovies" positionX="-63" positionY="-18" width="128" height="149"/>
     </elements>
 </model>

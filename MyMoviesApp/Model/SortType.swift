@@ -8,6 +8,9 @@
 import Foundation
 
 enum SortType {
-    case popularity
-    case topRated
+    
+    case POPULAR
+    
+    case TOP_RATED
+    
 }

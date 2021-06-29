@@ -13,13 +13,13 @@ class CollectionViewController: UICollectionViewController, MovieManagerDelegate
     
     var movieManager: MovieDataSource = MovieManager()
     var dataSource: [Movie] = []
-    var sortType: SortType = .popularity
+    var sortType: SortType = .POPULAR
     var paging: Int = 1
         
     override func viewDidLoad() {
         super.viewDidLoad()
         movieManager.delegateMM = self
-        movieManager.getMovies(filteredBy: sortType)
+        getMovies()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -32,17 +32,21 @@ class CollectionViewController: UICollectionViewController, MovieManagerDelegate
     
     @IBAction func segmentDidChange(_ sender: UISegmentedControl) {
         dataSource = []
+        paging = 1
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
         
         if sender.selectedSegmentIndex == 0 {
-            sortType = .popularity
-            movieManager.getMovies(filteredBy: sortType)
+            sortType = .POPULAR
+            getMovies()
         } else if sender.selectedSegmentIndex == 1 {
-            sortType = .topRated
-            movieManager.getMovies(filteredBy: sortType)
+            sortType = .TOP_RATED
+            getMovies()
         } else {
             movieManager.getFavourites()
         }
-        paging = 1
+        
         self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
     }
     
@@ -57,6 +61,9 @@ class CollectionViewController: UICollectionViewController, MovieManagerDelegate
     
     func getMoviesFailed(error: Error) {
         error.presentErr(vc: self)
+    }
+    func getMovies() {
+        movieManager.getMovies(filteredBy: sortType, page: paging)
     }
     
 
@@ -81,7 +88,7 @@ class CollectionViewController: UICollectionViewController, MovieManagerDelegate
     override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
 
         if indexPath.row == self.dataSource.count - 3 && sortSegment.selectedSegmentIndex != 2 {
-            movieManager.addMovies(filteredBy: sortType, page: paging)
+            getMovies()
         }
     }
     
@@ -99,8 +106,6 @@ class CollectionViewController: UICollectionViewController, MovieManagerDelegate
         let indexPath = collectionView.indexPathsForSelectedItems?.first
         destinationVC.movieId = dataSource[indexPath?.row ?? 0].id
     }
-    
-    
     
 }
 

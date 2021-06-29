@@ -62,7 +62,6 @@ class FavouritesManager {
         do {
             fetchedData = try context.fetch(request)
         } catch {
-            print(error)
             return nil
         }
         return fetchedData.first
@@ -72,7 +71,7 @@ class FavouritesManager {
         var fetchedMovies: [Movie] = []
         for movie in fetchedData {
             //TODO: why are they optionals
-            let newMovie: Movie = Movie(id: Int(movie.id), title: movie.title!, poster_path: movie.poster_Path, overview: movie.overview!, original_title: movie.original_title!, popularity: movie.popularity, release_date: movie.release_date)
+            let newMovie: Movie = Movie(id: Int(movie.id), title: movie.title!, poster_path: movie.poster_Path, overview: movie.overview!, original_title: movie.original_title!, popularity: movie.popularity, vote_average: movie.vote_average, release_date: movie.release_date)
             fetchedMovies.append(newMovie)
         }
         
@@ -87,6 +86,7 @@ class FavouritesManager {
             favouriteMovie.poster_Path = movie.poster_path
             favouriteMovie.title = movie.title
             favouriteMovie.release_date = movie.release_date
+        favouriteMovie.vote_average = movie.vote_average
     }
     
     func movieIsFavourite(with id: Int) -> Bool {

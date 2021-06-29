@@ -10,8 +10,7 @@ import Foundation
 protocol MovieDataSource {
     
     var delegateMM: MovieManagerDelegate? { get set }
-    func getMovies(filteredBy type: SortType)
     func getFavourites()
     func getMovieDetails(id: Int)
-    func addMovies(filteredBy type: SortType, page: Int)
+    func getMovies(filteredBy type: SortType, page: Int)
 }

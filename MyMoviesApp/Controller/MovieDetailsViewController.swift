@@ -66,7 +66,7 @@ class MovieDetailsViewController: UIViewController, MovieDetailsDelegate {
         DispatchQueue.main.async {
             self.titleLabel.text = self.movie?.original_title
             self.describtionLabel.text = self.movie?.overview
-            self.ratingLabel.text = "\(self.movie?.popularity ?? 0)"
+            self.ratingLabel.text = "\(self.movie?.vote_average ?? 0)"
             self.dateLabel.text = self.movie?.release_date
             let url = URL(string: "\(Constants.Connection.imageBaseString)\(self.movie?.poster_path ?? "")")
             self.posterImageView.setImage(with: url,placeholder: UIImage(named: "placeholder"))

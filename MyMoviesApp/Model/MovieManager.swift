@@ -25,13 +25,8 @@ struct MovieManager: MovieDataSource {
         
         return finalString
     }
-
-    func getMovies(filteredBy type: SortType = .popularity) {
-        let movieURL = baseURL+key+getFilterString(type: type)
-        connection.fetchData(urlString: movieURL, successCallback: delegateMM?.getMoviesSucceeded, errorCallback: delegateMM?.getMoviesFailed)
-    }
-    
-    func addMovies(filteredBy type: SortType = .popularity, page: Int) {
+ 
+    func getMovies(filteredBy type: SortType = .POPULAR, page: Int) {
         let movieURL = baseURL+key+getFilterString(type: type)+Constants.Connection.pagingStringStart+String(page)
         
         connection.fetchData(urlString: movieURL, successCallback: delegateMM?.getMoviesSucceeded, errorCallback: delegateMM?.getMoviesFailed)
@@ -53,9 +48,9 @@ struct MovieManager: MovieDataSource {
         
     func getFilterString(type: SortType) -> String {
         switch type {
-        case .popularity:
+        case .POPULAR:
             return Constants.Connection.sortByPopularityString
-        case .topRated:
+        case .TOP_RATED:
             return Constants.Connection.sortByTrandingString
         }
     }
