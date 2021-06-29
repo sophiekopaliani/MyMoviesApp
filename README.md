@@ -7,6 +7,6 @@ Running the app
 
 Everything needed to run the app is included in uploaded files(I think), exept the key and pod files. 
 
-KEY - App uses https://www.themoviedb.org/ Database, you cet get your key by registering. After Create a plist file named Keys, and add a property with name TMDBKey - value key
+KEY - App uses https://www.themoviedb.org/ Database, you cet get your key by registering. After Create a plist file named "Keys", and add a property with name "TMDBKey" - value key. Key.Plist file should be added directly in MyMoviesApp Project. 
 
-Pods - One 3rd party library, named MapleBacon is used to fetch images with url and to cash them. you can find more information here https://github.com/JanGorman/MapleBacon.git. You shoud install cocoa pod files cause they are not included. 
+Pods - One 3rd party library, named "MapleBacon" is used to fetch images with url and to cash them. you can find more information here https://github.com/JanGorman/MapleBacon.git. You shoud install cocoa pod files cause they are not included. 
