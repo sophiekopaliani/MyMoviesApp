@@ -73,8 +73,12 @@ class CollectionViewController: UICollectionViewController, MovieManagerDelegate
     }
     
     func getMoviesFailed(error: Error) {
-        error.presentErr(vc: self)
+        
+        DispatchQueue.main.async {
+            error.presentErr(vc: self, retryAction: self.refresh)
+        }
     }
+    
     func getMovies() {
         movieManager.getMovies(filteredBy: sortType, page: paging)
     }

@@ -30,14 +30,14 @@ class MovieDetailsViewController: UIViewController, MovieDetailsDelegate {
         super.viewDidLoad()
         movieManager.delegateMD = self
         
-        if let id = movieId {
-            movieManager.getMovieDetails(id: id)
-            movieIsFavourite = favouriteManager.movieIsFavourite(with: id)
-        }
+        loadMovieDetails()
         favouriteButton.isSelected = movieIsFavourite
     }
     @IBAction func faivouritesButtonPressed(_ sender: UIButton) {
-        
+        saveMovieToFavourites()
+    }
+    
+    func saveMovieToFavourites() {
         if let movie = movie {
             do {
                 if favouriteButton.isSelected {
@@ -47,7 +47,7 @@ class MovieDetailsViewController: UIViewController, MovieDetailsDelegate {
                     try favouriteManager.saveMovieToFavourites(movie)
                 }
             } catch {
-                error.presentErr(vc: self)
+                error.presentErr(vc: self, retryAction: saveMovieToFavourites)
             }
             favouriteButton.isSelected = !favouriteButton.isSelected
         }
@@ -59,7 +59,14 @@ class MovieDetailsViewController: UIViewController, MovieDetailsDelegate {
     }
     
     func getMovieDetailsFailed(error: Error) {
-        error.presentErr(vc: self)
+        error.presentErr(vc: self, retryAction: loadMovieDetails)
+    }
+    
+    func loadMovieDetails() {
+        if let id = movieId {
+            movieManager.getMovieDetails(id: id)
+            movieIsFavourite = favouriteManager.movieIsFavourite(with: id)
+        }
     }
     
     func displayMovieInfo() {
